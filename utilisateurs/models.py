@@ -1,9 +1,11 @@
 from django.db import models
-from django import list_forms # Erreur fréquente, c'est bien : from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from .models import Utilisateur
+from django.contrib.auth.models import AbstractUser
 
-class InscriptionForm(UserCreationForm):
-    class Meta(UserCreationForm.Meta):
-        model = Utilisateur
-        fields = UserCreationForm.Meta.fields + ('username','nom','prenom','email', 'role', 'telephone','mots de passe')
+# Si tu as personnalisé l'utilisateur, ton modèle doit ressembler à ça :
+class Utilisateur(AbstractUser):
+    nom = models.CharField(max_length=50, blank=True)
+    prenom = models.CharField(max_length=50, blank=True)
+    role = models.CharField(max_length=20, blank=True)
+    telephone = models.CharField(max_length=20, blank=True)
+    
+    # Django gère déjà username, email et password via AbstractUser

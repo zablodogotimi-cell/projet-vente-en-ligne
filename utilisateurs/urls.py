@@ -1,6 +1,8 @@
 from django.urls import path
-from . import views
+from .views import vue_accueil, vue_inscription, vue_connexion
 
 urlpatterns = [
-    path('inscription/', views.vue_inscription, name='inscription'),
+    path('', vue_accueil, name='accueil'),
+   path('inscription/', vue_inscription, name='inscription'),
+    path('connexion/', vue_connexion, name='connexion'),
 ]

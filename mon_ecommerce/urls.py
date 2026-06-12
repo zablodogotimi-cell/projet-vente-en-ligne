@@ -20,7 +20,8 @@ from utilisateurs.views import vue_accueil
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', vue_accueil, name='accueil'),  # La racine du site (http://127.0.0.1:8000/)
+    path('', vue_accueil, name='accueil'),  
+    path('', include('utilisateurs.urls')),
     path('compte/', include('django.contrib.auth.urls')),  # Gère /login/ et /logout/ automatiquement
     path('compte/', include('utilisateurs.urls')),  # Nos URLs personnalisées
 ]

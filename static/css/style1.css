@@ -1,0 +1,420 @@
+/* ==========================================================================
+   1. VARIABLES GLOBALES & STYLE DES PAGES AUTHENTIFICATION / ACCUEIL
+   ========================================================================== */
+:root {
+    --gradient-bg: linear-gradient(135deg, #46e56e 0%, #edc93a 50%, #fcd084 100%);
+    --primary-color: #6366f1;
+    --primary-hover: #4f46e5;
+    --google-color: #ea4335;
+    --facebook-color: #1877f2;
+    --glass-bg: rgba(255, 255, 255, 0.45);
+}
+
+/* Arrière-plan général avec dégradé animé */
+body {
+    background: var(--gradient-bg);
+    background-size: 200% 200%;
+    animation: gradientAnimation 12s ease infinite;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Style spécifique pour la Page d'Accueil */
+.hero-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    transform: translateY(0px);
+    transition: all 0.4s ease;
+}
+.hero-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Cartes de Connexion et Inscription (Effet Soft Glassboard) */
+.card {
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Image latérale pour le formulaire d'inscription */
+.card-img-left {
+    width: 45%;
+    background: url('https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=600&auto=format&fit=crop') center;
+    background-size: cover;
+}
+
+/* Éléments de formulaires (Inputs et Select) */
+.form-control, .form-select {
+    border: 2px solid #e5e7eb !important;
+    border-radius: 12px !important;
+    transition: all 0.2s ease-in-out !important;
+}
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15) !important;
+}
+
+/* Boutons Modernes & Animations */
+.btn-login {
+    font-size: 0.85rem;
+    letter-spacing: 0.05rem;
+    padding: 0.8rem 1.5rem !important;
+    border-radius: 12px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none !important;
+}
+
+.btn-primary {
+    background: var(--primary-color) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+.btn-primary:hover {
+    background: var(--primary-hover) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+.btn-outline-light:hover {
+    color: var(--primary-hover) !important;
+}
+
+/* Boutons Réseaux Sociaux */
+.btn-google {
+    background-color: transparent !important;
+    border: 2px solid var(--google-color) !important;
+    color: var(--google-color) !important;
+}
+.btn-google:hover {
+    background-color: var(--google-color) !important;
+    color: white !important;
+    transform: translateY(-2px);
+}
+
+.btn-facebook {
+    background-color: transparent !important;
+    border: 2px solid var(--facebook-color) !important;
+    color: var(--facebook-color) !important;
+}
+.btn-facebook:hover {
+    background-color: var(--facebook-color) !important;
+    color: white !important;
+    transform: translateY(-2px);
+}
+
+/* Liens discrets */
+.link-modern {
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+.link-modern:hover {
+    color: var(--primary-color) !important;
+    text-decoration: underline;
+}
+
+
+/* ==========================================================================
+   2. CONFIGURATION DE LA STRUCTURE ET DU DESIGN DU DASHBOARD
+   ========================================================================== */
+
+/* Reset Classique pour l'application */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Surcharge de la couleur de fond par défaut pour l'interface du Dashboard */
+.app-layout-wrapper {
+    background-color: #f3f4f6;
+    color: #1f2937;
+}
+
+/* Disposition Globale */
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Sombre */
+.sidebar {
+    width: 250px;
+    background-color: #111827;
+    color: #ffffff;
+    padding: 1.5rem;
+    flex-shrink: 0;
+}
+
+.sidebar-logo h2 {
+    font-size: 1.25rem;
+    color: #3b82f6;
+    margin-bottom: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #9ca3af;
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.nav-link svg {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.nav-link:hover, .nav-link.active {
+    background-color: #1f2937;
+    color: #ffffff;
+}
+
+/* Bloc Principal de Droite */
+.main-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Topbar Noire */
+.topbar {
+    background-color: #111827;
+    padding: 0.75rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #1f2937;
+}
+
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 300px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 0.75rem;
+    width: 1rem;
+    height: 1rem;
+    color: #9ca3af;
+}
+
+.search-wrapper input {
+    width: 100%;
+    background-color: #1f2937;
+    border: 1px solid #374151;
+    border-radius: 0.375rem;
+    padding: 0.5rem 1rem 0.5rem 2.2rem;
+    color: #ffffff;
+    outline: none;
+    font-size: 0.875rem;
+}
+
+.search-wrapper input::placeholder {
+    color: #6b7280;
+}
+
+.topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.notification-badge {
+    color: #9ca3af;
+    cursor: pointer;
+}
+
+.notification-badge svg {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.user-role {
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.user-avatar {
+    width: 2rem;
+    height: 2rem;
+    background-color: #3b82f6;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: bold;
+}
+
+/* Espace Contenu du Dashboard */
+.dashboard-content {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Compteurs / Indicateurs (Metrics) */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* Correction de 1xl à 1fr */
+    gap: 1.5rem;
+}
+
+.metric-card {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    border-left: 4px solid transparent;
+}
+
+/* Couleurs spécifiques aux bordures des cartes du Dashboard */
+.card-purple { border-left-color: #8b5cf6; }
+.card-blue { border-left-color: #3b82f6; }
+.card-green { border-left-color: #10b981; }
+
+.metric-body h3 {
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.metric-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.25rem;
+}
+
+.metric-trend {
+    font-size: 0.75rem;
+    color: #10b981;
+    font-weight: 500;
+}
+
+/* Zone du Graphique */
+.chart-section {
+    width: 100%;
+}
+
+.chart-card {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.chart-header {
+    margin-bottom: 2rem;
+}
+
+.chart-header h2 {
+    font-size: 1.125rem;
+    color: #111827;
+    font-weight: 600;
+}
+
+.chart-header p {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+/* Graphique en Pur CSS */
+.visual-chart-area {
+    display: flex;
+    height: 250px;
+    position: relative;
+    padding-left: 3rem;
+    align-items: flex-end;
+}
+
+.y-legend {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+.bars-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 3rem;
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 0.5rem;
+}
+
+.bar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    width: 60px;
+    height: 100%;
+    justify-content: flex-end;
+}
+
+.bar-fill {
+    width: 100%;
+    background-color: #cbd5e1;
+    border-radius: 0.25rem 0.25rem 0 0;
+    transition: height 0.3s ease;
+}
+
+.bar-fill.highlight {
+    background-color: #3b82f6;
+}
+
+.bar-month {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
