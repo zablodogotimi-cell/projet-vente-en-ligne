@@ -24,5 +24,6 @@ urlpatterns = [
     path('', include('utilisateurs.urls')),
     path('compte/', include('django.contrib.auth.urls')),  # Gère /login/ et /logout/ automatiquement
     path('compte/', include('utilisateurs.urls')),  # Nos URLs personnalisées
-]
+    path('accounts/', include('allauth.urls')),
+]   
 

@@ -43,6 +43,16 @@ INSTALLED_APPS = [
     'panier',
     'paiements',
     'avis',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
+]
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'mon_ecommerce.urls'
@@ -107,6 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
+SITE_ID = 1
 
 LANGUAGE_CODE = 'en-us'
 
@@ -125,3 +137,19 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 AUTH_USER_MODEL = 'utilisateurs.Utilisateur'
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': 'votre-client-id-google.apps.googleusercontent.com',
+            'secret': 'votre-cle-secrete-google',
+            'key': ''
+        }
+    },
+    'facebook': {
+        'APP': {
+            'client_id': 'votre-client-id-facebook',
+            'secret': 'votre-cle-secrete-facebook',
+            'key': ''
+        }
+    }
+}

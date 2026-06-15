@@ -5,4 +5,5 @@ urlpatterns = [
     path('', vue_accueil, name='accueil'),
    path('inscription/', vue_inscription, name='inscription'),
     path('connexion/', vue_connexion, name='connexion'),
+    
 ]

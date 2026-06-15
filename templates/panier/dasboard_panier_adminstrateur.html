@@ -1,0 +1,261 @@
+{% extends 'utilisateurs/base.html' %}
+{% load static %} {% block title %}Accueil - Boutique en Ligne{% endblock %}
+
+{% block content %}
+<div class="two-col">
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Chiffre d'Affaires</h3>
+                            <p class="card-subtitle">Comparaison des ventes avec la période précédente</p>
+                        </div>
+                        <div class="date-picker">
+                            <button class="date-btn" onclick="setDateRange('7d', this)">7J</button>
+                            <button class="date-btn active" onclick="setDateRange('30d', this)">30J</button>
+                            <button class="date-btn" onclick="setDateRange('90d', this)">90J</button>
+                            <button class="date-btn" onclick="setDateRange('12m', this)">12M</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-scroll">
+                            <div class="chart-scroll-inner">
+                                <div class="bar-chart">
+                                    <div class="y-axis">
+                                        <span class="y-axis-label">500k FCFA</span>
+                                        <span class="y-axis-label">400k FCFA</span>
+                                        <span class="y-axis-label">300k FCFA</span>
+                                        <span class="y-axis-label">200k FCFA</span>
+                                        <span class="y-axis-label">100k FCFA</span>
+                                        <span class="y-axis-label">0</span>
+                                    </div>
+                                    <div class="y-axis-lines">
+                                        <div class="y-axis-line"></div>
+                                        <div class="y-axis-line"></div>
+                                        <div class="y-axis-line"></div>
+                                        <div class="y-axis-line"></div>
+                                        <div class="y-axis-line"></div>
+                                        <div class="y-axis-line"></div>
+                                    </div>
+                                    <div class="bar-group">
+                                        <div class="bar-wrapper">
+                                            <div class="bar previous" style="height: 80px;"></div>
+                                            <div class="bar current" style="height: 100px;"></div>
+                                        </div>
+                                        <span class="bar-label">Jan</span>
+                                    </div>
+                                    <div class="bar-group">
+                                        <div class="bar-wrapper">
+                                            <div class="bar previous" style="height: 95px;"></div>
+                                            <div class="bar current" style="height: 120px;"></div>
+                                        </div>
+                                        <span class="bar-label">Fév</span>
+                                    </div>
+                                    <div class="bar-group">
+                                        <div class="bar-wrapper">
+                                            <div class="bar previous" style="height: 70px;"></div>
+                                            <div class="bar current" style="height: 85px;"></div>
+                                        </div>
+                                        <span class="bar-label">Mar</span>
+                                    </div>
+                                    <div class="bar-group">
+                                        <div class="bar-wrapper">
+                                            <div class="bar previous" style="height: 110px;"></div>
+                                            <div class="bar current" style="height: 140px;"></div>
+                                        </div>
+                                        <span class="bar-label">Avr</span>
+                                    </div>
+                                    <div class="bar-group">
+                                        <div class="bar-wrapper">
+                                            <div class="bar previous" style="height: 130px;"></div>
+                                            <div class="bar current" style="height: 155px;"></div>
+                                        </div>
+                                        <span class="bar-label">Mai</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-dot current"></span>
+                                Période Actuelle
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot previous"></span>
+                                Période Précédente
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Activités Récentes</h3>
+                            <p class="card-subtitle">Dernières interactions sur votre boutique</p>
+                        </div>
+                        <button class="btn btn-ghost">Tout voir</button>
+                    </div>
+                    <div class="card-scroll">
+                        <div class="card-scroll-inner" style="min-width: 360px;">
+                            <div class="activity-feed">
+                                <div class="activity-item">
+                                    <div class="activity-icon green">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="9" cy="21" r="1"/>
+                                            <circle cx="20" cy="21" r="1"/>
+                                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                                        </svg>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p class="activity-text"><strong>Sarah Chen</strong> a passé une commande de 45 000 FCFA</p>
+                                        <span class="activity-time">Il y a 2 minutes</span>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon blue">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="8.5" cy="7" r="4"/>
+                                        </svg>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p class="activity-text">Nouveau compte client créé par <strong>Michael Torres</strong></p>
+                                        <span class="activity-time">Il y a 15 minutes</span>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon orange">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                                            <line x1="12" y1="9" x2="12" y2="13"/>
+                                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                        </svg>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p class="activity-text">Stock critique : <strong>iPhone 13 Pro</strong> (plus que 2 restants)</p>
+                                        <span class="activity-time">Il y a 1 heure</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="two-col" style="margin-top: 1.5rem;">
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Nouveaux Clients</h3>
+                            <p class="card-subtitle">Évolution des inscriptions par semaine</p>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-scroll">
+                            <div class="chart-scroll-inner">
+                                <div class="bar-chart">
+                                    <div class="y-axis">
+                                        <span class="y-axis-label">150</span>
+                                        <span class="y-axis-label">100</span>
+                                        <span class="y-axis-label">50</span>
+                                        <span class="y-axis-label">0</span>
+                                    </div>
+                                    <div class="y-axis-lines">
+                                        <div class="y-axis-line"></div>
+                                        <div class="y-axis-line"></div>
+                                        <div class="y-axis-line"></div>
+                                        <div class="y-axis-line"></div>
+                                    </div>
+                                    <div class="bar-group">
+                                        <div class="bar-wrapper">
+                                            <div class="bar" style="height: 70px; background: var(--success);"></div>
+                                        </div>
+                                        <span class="bar-label">Sem 1</span>
+                                    </div>
+                                    <div class="bar-group">
+                                        <div class="bar-wrapper">
+                                            <div class="bar" style="height: 95px; background: var(--success);"></div>
+                                        </div>
+                                        <span class="bar-label">Sem 2</span>
+                                    </div>
+                                    <div class="bar-group">
+                                        <div class="bar-wrapper">
+                                            <div class="bar" style="height: 130px; background: var(--success);"></div>
+                                        </div>
+                                        <span class="bar-label">Sem 3</span>
+                                    </div>
+                                    <div class="bar-group">
+                                        <div class="bar-wrapper">
+                                            <div class="bar" style="height: 110px; background: var(--success);"></div>
+                                        </div>
+                                        <span class="bar-label">Sem 4</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-dot" style="background: var(--success);"></span>
+                                Comptes activés
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">Objectifs E-Commerce</h3>
+                            <p class="card-subtitle">Suivi des indicateurs clés de vente</p>
+                        </div>
+                    </div>
+                    <div class="card-scroll">
+                        <div class="card-scroll-inner" style="min-width: 400px;">
+                            <div style="padding: 0.5rem 0;">
+                                <div style="margin-bottom: 1.5rem;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                        <span style="font-size: 0.875rem; color: var(--text-primary);">Objectif Ventes Mensuel</span>
+                                        <span style="font-size: 0.875rem; font-weight: 600; color: var(--success);">85% (1.7M / 2M)</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill success" style="width: 85%;"></div>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 1.5rem;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                        <span style="font-size: 0.875rem; color: var(--text-primary);">Commandes Livrées</span>
+                                        <span style="font-size: 0.875rem; font-weight: 600; color: var(--accent);">92%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill accent" style="width: 92%;"></div>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 1.5rem;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                        <span style="font-size: 0.875rem; color: var(--text-primary);">Taux de Conversion</span>
+                                        <span style="font-size: 0.875rem; font-weight: 600; color: var(--accent);">3.4%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill accent" style="width: 34%;"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                        <span style="font-size: 0.875rem; color: var(--text-primary);">Paniers Abandonnés</span>
+                                        <span style="font-size: 0.875rem; font-weight: 600; color: var(--warning);">24%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill warning" style="width: 24%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2026 E-Boutique Admin. Tous droits réservés.</p>
+        </footer>
+{% endblock %}

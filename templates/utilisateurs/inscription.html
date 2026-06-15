@@ -55,17 +55,19 @@
 
               <hr class="my-4">
 
-              <div class="d-grid mb-2">
-                <button class="btn btn-lg btn-google btn-login fw-bold text-uppercase" type="button">
-                  <i class="fab fa-google me-2"></i> S'inscrire avec Google
-                </button>
-              </div>
+            {% load socialaccount %}
 
-              <div class="d-grid">
-                <button class="btn btn-lg btn-facebook btn-login fw-bold text-uppercase" type="button">
-                  <i class="fab fa-facebook-f me-2"></i> S'inscrire avec Facebook
-                </button>
-              </div>
+<div class="d-grid mb-2">
+  <a href="{% provider_login_url 'google' %}" class="btn btn-google btn-login text-uppercase fw-bold text-center" style="text-decoration: none;">
+    <i class="fab fa-google me-2"></i> Se connecter avec Google
+  </a>
+</div>
+
+<div class="d-grid">
+  <a href="{% provider_login_url 'facebook' %}" class="btn btn-facebook btn-login text-uppercase fw-bold text-center" style="text-decoration: none;">
+    <i class="fab fa-facebook-f me-2"></i> Se connecter avec Facebook
+  </a>
+</div>
 
             </form>
           </div>
