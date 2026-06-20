@@ -1,9 +1,13 @@
 from django.urls import path
-from .views import vue_accueil, vue_inscription, vue_connexion
+from . import views
 
 urlpatterns = [
-    path('', vue_accueil, name='accueil'),
-   path('inscription/', vue_inscription, name='inscription'),
-    path('connexion/', vue_connexion, name='connexion'),
+    path('', views.accueil, name='accueil'),
+    path('inscription/', views.inscription, name='inscription'),
+    path('connexion/', views.connexion, name='connexion'),
+    path('deconnexion/', views.deconnexion, name='deconnexion'),
     
+    # Routes pour les tableaux de bord (nécessaires pour le bon fonctionnement des redirections)
+    path('dashboard/vendeur/', views.dashboard_vendeur, name='dashboard_vendeur'),
+    path('dashboard/acheteur/', views.dashboard_acheteur, name='dashboard_acheteur'),
 ]

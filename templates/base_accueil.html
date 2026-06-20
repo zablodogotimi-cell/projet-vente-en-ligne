@@ -17,24 +17,24 @@
             <span class="toggler-icon"></span>
           </button>
 
-<div class="collapse navbar-collapse sub-menu-bar" id="navbarNine">
-  <ul class="navbar-nav me-auto d-flex flex-row gap-4">
-    <li class="nav-item">
-      <a class="page-scroll active nav-link text-white" href="#hero-area">Accueil</a>
-    </li>
-    <li class="nav-item">
-      <a class="page-scroll nav-link text-white" href="#services">Nos Services</a>
-    </li>
-    <li class="nav-item">
-      <a class="page-scroll nav-link text-white" href="#contact">Contact</a>
-    </li>
-  </ul>
-</div>
+          <div class="collapse navbar-collapse sub-menu-bar" id="navbarNine">
+            <ul class="navbar-nav me-auto d-flex flex-row gap-4">
+              <li class="nav-item">
+                <a class="page-scroll active nav-link text-white" href="#hero-area">Accueil</a>
+              </li>
+              <li class="nav-item">
+                <a class="page-scroll nav-link text-white" href="#services">Nos Services</a>
+              </li>
+              <li class="nav-item">
+                <a class="page-scroll nav-link text-white" href="#contact">Contact</a>
+              </li>
+            </ul>
+          </div>
 
           <div class="navbar-btn d-none d-lg-inline-block">
             {% if user.is_authenticated %}
               <span class="text-white me-3">Bonjour, {{ user.username }}</span>
-              <a class="btn btn-danger btn-sm rounded-pill" href="#">Déconnexion</a>
+              <a class="btn btn-danger btn-sm rounded-pill" href="{% url 'deconnexion' %}">Déconnexion</a>
             {% else %}
               <a class="btn btn-outline-light btn-sm rounded-pill me-2" href="{% url 'connexion' %}">Connexion</a>
               <a class="btn btn-light btn-sm rounded-pill text-primary fw-bold" href="{% url 'inscription' %}">S'inscrire</a>
@@ -54,7 +54,7 @@
           <h1 class="fw-bold mb-3">Découvrez notre plateforme d'Achat et Vente en ligne.</h1>
           <p class="mb-4">
             Rejoignez une communauté dynamique ! Que vous soyez un professionnel cherchant à vendre ses articles 
-            ou un acheteur à la recherche des meilleures opportunités, notre espace sécurisé répond à vos besoins.
+            or un acheteur à la recherche des meilleures opportunités, notre espace sécurisé répond à vos besoins.
           </p>
           <div class="button">
             {% if not user.is_authenticated %}

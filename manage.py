@@ -1,11 +1,14 @@
-#!/usr/bin/env python
-"""Django's command-line utility for administrative tasks."""
+
 import os
 import sys
+import io
 
+
+if sys.platform == "win32":
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 def main():
-    """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mon_ecommerce.settings')
     try:
         from django.core.management import execute_from_command_line
@@ -16,7 +19,6 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
-
 
 if __name__ == '__main__':
     main()

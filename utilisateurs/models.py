@@ -8,4 +8,6 @@ class Utilisateur(AbstractUser):
     role = models.CharField(max_length=20, blank=True)
     telephone = models.CharField(max_length=20, blank=True)
     
-    # Django gère déjà username, email et password via AbstractUser
+class RoleUtilisateur(models.TextChoices):
+    CLIENT = 'Client', 'Client'
+    VENDEUR = 'Vendeur', 'Vendeur'
