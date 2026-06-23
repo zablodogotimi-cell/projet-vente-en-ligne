@@ -24,7 +24,8 @@ def dashboard_vendeur(request):
     return render(request, 'utilisateurs/dasboard_vendeur.html')
 
 def dashboard_acheteur(request):
-    if 'utilisateur_id' not in request.session or request.session.get('utilisateur_role') != 'Acheteur':
+    role = str(request.session.get('utilisateur_role', '')).strip().lower()
+    if 'utilisateur_id' not in request.session or role not in ['acheteur', 'client', 'acheteur (client)']:
         messages.error(request, "Veuillez vous connecter pour accéder à votre espace.")
         return redirect('/compte/connexion/')
         
@@ -70,16 +71,31 @@ def connexion(request):
             )
             
             if check_password(mot_de_passe, utilisateur.password):
+                # On nettoie proprement les anciennes variables de session
+                request.session.pop('utilisateur_id', None)
+                request.session.pop('utilisateur_role', None)
+                request.session.pop('utilisateur_nom', None)
+                
+                # On enregistre les nouvelles données
                 request.session['utilisateur_id'] = utilisateur.id
                 request.session['utilisateur_role'] = utilisateur.role
                 request.session['utilisateur_nom'] = utilisateur.username
                 
                 messages.success(request, f"Ravi de vous revoir, {utilisateur.username} !")
                 
-                if utilisateur.role == 'Vendeur':
+                # --- CORRECTION DES REDIRECTIONS STRICTES ---
+                # On force la vérification en ignorant les espaces et les casses (majuscules/minuscules)
+                role_clean = str(utilisateur.role).strip().lower()
+                
+                if role_clean == 'vendeur':
                     return redirect('/compte/dashboard/vendeur/')
-                else:
+                elif role_clean in ['acheteur', 'client', 'acheteur (client)']:
                     return redirect('/compte/dashboard/acheteur/')
+                else:
+                    # Si le rôle dans la base n'est ni l'un ni l'autre
+                    messages.error(request, f"Rôle '{utilisateur.role}' non reconnu par le système.")
+                    return render(request, 'utilisateurs/connexion.html')
+                    
             else:
                 messages.error(request, "Identifiants ou mot de passe incorrects.")
             

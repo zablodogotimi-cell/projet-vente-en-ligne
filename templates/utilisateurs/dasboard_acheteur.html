@@ -1,7 +1,7 @@
 {% extends 'utilisateurs/base1.html' %}
 {% load static %}
 
-{% block title %}Mon Espace Client - KOSSI-TEEDO{% endblock %}
+{% block title %}Mon Espace Client - KOSSI6TEEDO{% endblock %}
 
 {% block main_content %}
 <div class="dashboard-wrapper">
@@ -13,7 +13,7 @@
                         <polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
                 </div>
-                <span class="logo-text" style="font-size: 1.25rem; font-weight: 700; color: #0f172a;">KOSSI6TEEDO</span>
+                <span class="logo-text" style="font-size: 1.25rem; font-weight: 700; color: #0f172a;">KOSSI-TEEDO</span>
             </div>
             
             <nav class="top-nav" style="display: flex; gap: 1rem;">
@@ -37,16 +37,15 @@
     </header>
 
     <main class="main-content" style="padding: 2rem;">
-       <div class="page-header" style="margin-bottom: 2rem;">
+        <div class="page-header" style="margin-bottom: 2rem;">
             <h1 class="greeting" id="greeting" style="font-size: 2rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">
-                <span id="time-greeting">Bonjour</span>, Vendeur 
+                <span id="time-greeting">Bonjour</span>, Acheteur 
                 {% if request.session.utilisateur_nom %}
                     {{ request.session.utilisateur_nom }}
                 {% endif %}
             </h1>
             <p class="greeting-sub" style="color: #64748b;">Bienvenue sur votre espace KOSSI-TEEDO. Voici l'état de vos activités aujourd'hui.</p>
         </div>
-          
        
 
         <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">

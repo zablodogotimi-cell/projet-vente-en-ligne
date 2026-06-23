@@ -87,7 +87,7 @@ DATABASES = {
         'NAME': 'vente_ligne_db',         
         'USER': 'postgres',           
         'PASSWORD': '1234',   
-        'HOST': 'localhost',           
+        'HOST': '127.0.0.1',           
         'PORT': '5432', 
         'OPTIONS': {
             'options': '-c client_min_messages=notice -c lc_messages=en_US.UTF-8'
