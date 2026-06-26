@@ -14,9 +14,90 @@
     <link rel="stylesheet" href="{% static 'css/style2.css' %}">
 </head>
 <body>
+    <div class="dashboard-wrapper">
+    <header class="main-header" style="display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: #fff; border-bottom: 1px solid #e2e8f0;">
+        <div class="header-left" style="display: flex; align-items: center; gap: 2rem;">
+            <div class="logo-container" style="display: flex; align-items: center; gap: 10px;">
+                <div class="logo-icon" style="width: 32px; height: 32px; background: #3b82f6; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff;">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+                <span class="logo-text" style="font-size: 1.25rem; font-weight: 700; color: #0f172a;">KOSSI-TEEDO</span>
+            </div>
+            
+            <nav class="top-nav" style="display: flex; gap: 1rem;">
+    <!-- 1. Mon Tableau de Bord (S'adapte automatiquement à l'URL actuelle) -->
+    {% if 'vendeur' in request.path %}
+        <a href="{% url 'dashboard_vendeur' %}" 
+           class="nav-link active" 
+           style="padding: 0.5rem 1rem; border-radius: 8px; font-weight: 500; text-decoration: none; background: #e0f2fe; color: #0369a1;">
+            Mon Tableau de Bord
+        </a>
+    {% elif 'acheteur' in request.path %}
+        <a href="{% url 'dashboard_acheteur' %}" 
+           class="nav-link active" 
+           style="padding: 0.5rem 1rem; border-radius: 8px; font-weight: 500; text-decoration: none; background: #e0f2fe; color: #0369a1;">
+            Mon Tableau de Bord
+        </a>
+    {% else %}
+        <!-- Si on est ailleurs (ex: sur la boutique), on redirige par défaut selon la session -->
+        <a href="{% if request.session.role|lower == 'vendeur' %}{% url 'dashboard_vendeur' %}{% else %}{% url 'dashboard_acheteur' %}{% endif %}" 
+   class="nav-link" 
+   style="padding: 0.5rem 1rem; color: #64748b; border-radius: 8px; font-weight: 500; text-decoration: none;">
+    Mon Tableau de Bord
+</a>
+    {% endif %}
+
+<a href="{% url 'dashboard_catalogue' %}" 
+   class="nav-link {% if 'mon-catalogue' in request.path %}active{% endif %}" 
+   style="padding: 0.5rem 1rem; border-radius: 8px; font-weight: 500; text-decoration: none; 
+          {% if 'mon-catalogue' in request.path %} background: #e0f2fe; color: #0369a1; {% else %} color: #64748b; {% endif %}">
+    Boutique
+</a>
+
+   {% if request.session.role == 'vendeur' %}
+    <a href="{% url 'commandes_vendeur' %}" class="nav-link" ...>📦 Commandes</a>
+{% else %}
+    <a href="{% url 'voir_commandes' %}" class="nav-link" ...>🛒 Mes Commandes</a>
+{% endif %}
+
+<a href="{% url 'dashboard_catalogue' %}" class="nav-link" style="padding: 0.5rem 1rem; color: #64748b; border-radius: 8px; font-weight: 500; text-decoration: none;">Boutique</a>
+
+    
+</nav>
+        </div>
+
+        <div class="header-right" style="display: flex; align-items: center; gap: 1rem;">
+            <a href="{% url 'deconnexion' %}" class="logout-link" style="color: #ef4444; text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 5px;">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                Déconnexion
+            </a>
+        </div>
+    </header>
 
     {% block main_content %}
     {% endblock %}
+    </div>
+
+<!-- SCRIPT JAVASCRIPT CORRIGÉ POUR MINUIT (00H) -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const greetingSpan = document.getElementById("time-greeting");
+        const currentHour = new Date().getHours();
+
+        // Si l'heure est entre 18h (18) ET 4h du matin (4), on dit Bonsoir
+        if (currentHour >= 18 || currentHour < 4) {
+            greetingSpan.textContent = "Bonsoir";
+        } else {
+            greetingSpan.textContent = "Bonjour";
+        }
+    });
+</script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

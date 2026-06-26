@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'panier',
     'paiements',
     'avis',
+    'debug_toolbar',
     
     # Packages tiers (Authentification Sociale)
     'allauth',
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',  # Requis par allauth
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'mon_ecommerce.urls'
@@ -120,6 +122,12 @@ STATICFILES_DIRS = [
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SECURE = False
+SESSION_SAVE_EVERY_REQUEST = True
 
 
 # --- CONFIGURATION PERSONNALISÉE DU PROJET ---
@@ -154,3 +162,5 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

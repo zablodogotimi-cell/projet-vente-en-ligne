@@ -1,0 +1,199 @@
+{% extends 'utilisateurs/base1.html' %}
+
+{% block title %}Boutique - KOSSI-TEEDO{% endblock %}
+
+{% block main_content %}
+<div style="padding-top: 1rem; font-family: sans-serif;">
+    <h2 style="font-size: 1.75rem; font-weight: 700; color: #0f172a; margin-bottom: 1.5rem;">🛍️ Articles disponibles à l'achat</h2>
+
+    <div style="background: #f8fafc; padding: 1.25rem; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+        
+        <div style="position: relative; flex: 1;">
+            <input type="text" id="search-bar" placeholder="🔍 Rechercher un produit (ex: Nike, Air Force...)" 
+                   style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; box-sizing: border-box; outline: none; transition: border-color 0.2s;">
+        </div>
+
+        <div>
+            <span style="font-size: 0.85rem; font-weight: 600; color: #64748b; display: block; margin-bottom: 0.5rem;">Filtrer par catégorie :</span>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;" id="category-filters">
+                <button class="filter-btn active" data-category="all" 
+                        style="padding: 0.5rem 1rem; background: #3b82f6; color: white; border: 1px solid #3b82f6; border-radius: 20px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s;">
+                    Tous
+                </button>
+                {% for cat in categories %}
+                    {% if cat.produits %}
+                        <button class="filter-btn" data-category="cat-{{ cat.id }}" 
+                                style="padding: 0.5rem 1rem; background: #fff; color: #475569; border: 1px solid #cbd5e1; border-radius: 20px; font-size: 0.85rem; font-weight: 500; cursor: pointer; transition: all 0.2s;">
+                            {{ cat.name }}
+                        </button>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <p id="no-results" style="display: none; color: #64748b; text-align: center; font-size: 1.1rem; margin-top: 3rem;">
+        Aucun produit ne correspond à votre recherche.
+    </p>
+
+    <div id="catalog-container">
+        {% for cat in categories %}
+            {% if cat.produits %}
+                <div class="category-block" id="cat-{{ cat.id }}" style="margin-bottom: 3rem;">
+                    <h3 style="font-size: 1.3rem; font-weight: 600; color: #0f172a; border-left: 4px solid #3b82f6; padding-left: 10px; margin-bottom: 1.25rem;">
+                        {{ cat.name }}
+                    </h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem;">
+                        {% for produit in cat.produits %}
+                            <div class="product-card" data-name="{{ produit.name|lower }}" style="background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column;">
+                                
+                                <div style="width: 100%; height: 180px; background: #f1f5f9; display: flex; align-items: center; justify-content: center;">
+                                    {% if produit.image and produit.image.url %}
+                                        <img src="{{ produit.image.url }}" alt="{{ produit.name }}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                        <span style="font-size: 3.5rem; display: none;">🛍️</span>
+                                    {% else %}
+                                        <span style="font-size: 3.5rem;">🛍️</span>
+                                    {% endif %}
+                                </div>
+                                
+                                <form action="#" method="POST" style="padding: 1.25rem; flex: 1; display: flex; flex-direction: column; gap: 0.5rem; margin: 0;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="product_id" value="{{ produit.id }}">
+
+                                    <h4 class="product-title" style="margin: 0; font-size: 1.05rem; font-weight: 600; color: #0f172a;">{{ produit.name }}</h4>
+                                    <p style="margin: 0; font-size: 0.85rem; color: #64748b; flex: 1; line-height: 1.4;">{{ produit.description|truncatewords:12 }}</p>
+                                    
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+                                        <span style="font-size: 0.85rem; color: #475569;">Prix unitaire :</span>
+                                        <span style="font-weight: 600; color: #475569; font-size: 0.95rem;">{{ produit.price }} FCFA</span>
+                                    </div>
+
+                                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: 0.25rem;">
+                                        <label style="font-size: 0.85rem; color: #475569;">Quantité :</label>
+                                        <input type="number" name="quantity" class="quantity-input" value="1" min="1" max="{{ produit.stock }}" data-price="{{ produit.price }}" style="width: 70px; padding: 0.3rem; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center;">
+                                    </div>
+
+                                    <div style="font-size: 0.75rem; text-align: right; color: #22c55e; font-weight: 500;">
+                                        Stock disponible: {{ produit.stock }}
+                                    </div>
+
+                                    <hr style="border: 0; border-top: 1px dashed #e2e8f0; margin: 0.5rem 0;">
+
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                                        <span style="font-weight: 600; color: #0f172a; font-size: 0.95rem;">Total :</span>
+                                        <span class="total-display" style="font-weight: 700; color: #3b82f6; font-size: 1.15rem;">{{ produit.price }} FCFA</span>
+                                    </div>
+                                    
+                                    <button type="submit" style="width: 100%; border: none; cursor: pointer; text-align: center; padding: 0.6rem; background: #3b82f6; color: white; border-radius: 6px; font-weight: 600; font-size: 0.9rem;">
+                                        🛒 Ajouter au panier
+                                    </button>
+                                </form>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% empty %}
+            <p style="color: #64748b; text-align: center; font-size: 1.1rem; margin-top: 3rem;">Aucun article n'est disponible en magasin pour le moment.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    const searchBar = document.getElementById('search-bar');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const categoryBlocks = document.querySelectorAll('.category-block');
+    const noResultsMsg = document.getElementById('no-results');
+
+    let currentCategory = 'all';
+
+    // Fonction principale de filtrage combiné (Recherche + Catégorie)
+    function filterCatalog() {
+        const searchText = searchBar.value.toLowerCase().trim();
+        let totalVisibleProducts = 0;
+
+        categoryBlocks.forEach(block => {
+            const blockId = block.getAttribute('id');
+            const products = block.querySelectorAll('.product-card');
+            let visibleProductsInBlock = 0;
+
+            // 1. Vérifier si le bloc correspond à la catégorie sélectionnée
+            const categoryMatch = (currentCategory === 'all' || blockId === currentCategory);
+
+            products.forEach(product => {
+                const productName = product.getAttribute('data-name');
+                // 2. Vérifier si le nom correspond au texte recherché
+                const searchMatch = productName.includes(searchText);
+
+                if (categoryMatch && searchMatch) {
+                    product.style.display = 'flex';
+                    visibleProductsInBlock++;
+                    totalVisibleProducts++;
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+
+            // Si aucun produit n'est visible dans cette catégorie, on masque le titre de la catégorie
+            if (visibleProductsInBlock > 0) {
+                block.style.display = 'block';
+            } else {
+                block.style.display = 'none';
+            }
+        });
+
+        // Afficher un message d'erreur si la recherche est complètement vide
+        if (totalVisibleProducts === 0) {
+            noResultsMsg.style.display = 'block';
+        } else {
+            noResultsMsg.style.display = 'none';
+        }
+    }
+
+    // Événement d'écoute sur la barre de recherche
+    searchBar.addEventListener('input', filterCatalog);
+
+    // Événement d'écoute sur les boutons de catégorie
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Réinitialiser le style des anciens boutons
+            filterButtons.forEach(b => {
+                b.style.background = '#fff';
+                b.style.color = '#475569';
+                b.style.borderColor = '#cbd5e1';
+                b.classList.remove('active');
+            });
+
+            // Appliquer le style "actif" au bouton cliqué
+            this.style.background = '#3b82f6';
+            this.style.color = 'white';
+            this.style.borderColor = '#3b82f6';
+            this.classList.add('active');
+
+            currentCategory = this.getAttribute('data-category');
+            filterCatalog();
+        });
+    });
+
+    // --- Script existant de calcul dynamique du prix ---
+    document.querySelectorAll('.quantity-input').forEach(input => {
+        input.addEventListener('input', function() {
+            const price = parseFloat(this.getAttribute('data-price'));
+            let quantity = parseInt(this.value);
+            const maxStock = parseInt(this.getAttribute('max'));
+
+            if (isNaN(quantity) || quantity < 1) {
+                quantity = 1;
+                this.value = 1;
+            } else if (quantity > maxStock) {
+                quantity = maxStock;
+                this.value = maxStock;
+            }
+
+            const total = price * quantity;
+            const card = this.closest('.product-card');
+            card.querySelector('.total-display').textContent = total.toFixed(2).replace('.00', '') + ' FCFA';
+        });
+    });
+</script>
+{% endblock %}

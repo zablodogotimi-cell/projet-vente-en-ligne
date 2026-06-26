@@ -3,6 +3,11 @@ from django.contrib import messages
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth import get_user_model
 from django.db.models import Q 
+import csv
+from django.http import HttpResponse
+from catalogue.models import Category
+from catalogue.models import Category, Product
+from django.db.models import Prefetch
 
 Utilisateur_Model = get_user_model()
 
@@ -16,12 +21,23 @@ def accueil(request):
             
     return render(request, 'base_accueil.html')
 
+
 def dashboard_vendeur(request):
     if 'utilisateur_id' not in request.session or request.session.get('utilisateur_role') != 'Vendeur':
         messages.error(request, "Accès refusé. Vous devez être connecté en tant que Vendeur.")
         return redirect('/compte/connexion/')
+        
+    vendeur_id = request.session.get('utilisateur_id')
     
-    return render(request, 'utilisateurs/dasboard_vendeur.html')
+    # Correction des mots-clés selon tes champs réels (products au lieu de product)
+    prods_vendeur = Product.objects.filter(vendeur_id=vendeur_id)
+    categories = Category.objects.filter(products__in=prods_vendeur).prefetch_related(
+        Prefetch('products', queryset=prods_vendeur, to_attr='produits')
+    ).distinct()
+    
+    return render(request, 'utilisateurs/dasboard_vendeur.html', {
+        'categories': categories
+    })
 
 def dashboard_acheteur(request):
     role = str(request.session.get('utilisateur_role', '')).strip().lower()
@@ -108,3 +124,5 @@ def deconnexion(request):
     request.session.flush()
     messages.success(request, "Vous avez été déconnecté.")
     return redirect('/')
+
+
